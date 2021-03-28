@@ -26,7 +26,28 @@ namespace YoutubeAPI
 	public:
 		Youtube(std::string);
 		~Youtube();
+		
 		YoutubeSearch search(std::string query, int maxResults = 25, std::string pageToken = "none", ResultOrder order = ResultOrder::NONE, ResultType type = ResultType::NONE);
+
+		void  playlist_items(std::string id);
+
+		void channels();
+
+		void comments(std::string id);
+
+		void captions();
+
+		void subscriptions(std::string id);
+
+		void videos(std::string id);
+
+		void members(std::string id);
+
+		void regions();
+
+		void languages();
+
+		void memberships_levels();
 
 		void set_api_url(std::string);
 	private:
