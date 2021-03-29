@@ -40,7 +40,6 @@ namespace YoutubeAPI
 
 		Json::Value root;
 		std::istringstream sin(response.body);
-		std::cout << response.body << std::endl;
 
 		sin >> root;
 
@@ -52,7 +51,10 @@ namespace YoutubeAPI
 			search.errorCode = root["error"]["code"].asInt();
 			search.errorMessage = root["error"]["message"].asString();
 			search.errorStatus = root["error"]["status"].asString();
-			search.errorReason = root["error"]["errors"][0]["reason"].asString();
+			for (Json::Value item : root["error"]["errors"])
+			{
+				search.errorReasons.push_back(item["reason"].asString());
+			}
 			search.HaveError = true;
 		}
 		else {
@@ -98,6 +100,50 @@ namespace YoutubeAPI
 				};
 
 				search.items.push_back(video);
+			}
+		}
+
+		return search;
+	}
+
+	YoutubeRegionSearch Youtube::region(std::string id)
+	{
+		URLBuilder url = URLBuilder(this->ApiURL + "i18nRegions");
+		url.add_param("hl", id);
+		url.add_param("part", "snippet");
+		url.add_param("key", this->key);
+
+		RestClient::Response response = RestClient::get(url.get_url());
+
+		Json::Value root;
+		std::istringstream sin(response.body);
+
+		sin >> root;
+
+		YoutubeRegionSearch search = YoutubeRegionSearch();
+
+		if (root["error"])
+		{
+			search.errorCode = root["error"]["code"].asInt();
+			for (Json::Value item : root["error"]["errors"])
+			{
+				search.errors.push_back(item["message"].asString());
+			}
+			search.HaveError = true;
+		}
+		else 
+		{
+			search.HaveError = false;
+			search.etag = root["etag"].asString();
+
+			for (Json::Value item : root["items"])
+			{
+				search.regions.push_back({
+					item["etag"].asString(),
+					item["id"].asString(),
+					item["snippet"]["gl"].asString(),
+					item["snippet"]["name"].asString()
+					});
 			}
 		}
 

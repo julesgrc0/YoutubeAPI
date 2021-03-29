@@ -10,6 +10,6 @@ namespace YoutubeAPI
 
 	YoutubeSearch::~YoutubeSearch()
 	{
-
+		this->items.clear();
 	}
 }

@@ -36,7 +36,7 @@ namespace YoutubeAPI
 		int errorCode;
 		std::string errorMessage;
 		std::string errorStatus;
-		std::string errorReason;
+		std::vector<std::string> errorReasons;
 
 		std::string regionCode;
 		std::string nextPageToken;

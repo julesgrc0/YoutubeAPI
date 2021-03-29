@@ -141,12 +141,14 @@
   <ItemGroup>
     <ClInclude Include="URLBuilder.h" />
     <ClInclude Include="Youtube.h" />
+    <ClInclude Include="YoutubeRegionSearch.h" />
     <ClInclude Include="YoutubeSearch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="URLBuilder.cpp" />
     <ClCompile Include="Youtube.cpp" />
+    <ClCompile Include="YoutubeRegionSearch.cpp" />
     <ClCompile Include="YoutubeSearch.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

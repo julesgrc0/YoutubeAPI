@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include "YoutubeSearch.h"
+#include "YoutubeRegionSearch.h"
 
 namespace YoutubeAPI 
 {
@@ -29,6 +30,8 @@ namespace YoutubeAPI
 		
 		YoutubeSearch search(std::string query, int maxResults = 25, std::string pageToken = "none", ResultOrder order = ResultOrder::NONE, ResultType type = ResultType::NONE);
 
+		YoutubeRegionSearch region(std::string id);
+
 		void  playlist_items(std::string id);
 
 		void channels();
@@ -42,8 +45,6 @@ namespace YoutubeAPI
 		void videos(std::string id);
 
 		void members(std::string id);
-
-		void regions();
 
 		void languages();
 

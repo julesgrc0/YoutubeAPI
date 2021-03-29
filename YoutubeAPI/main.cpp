@@ -7,14 +7,19 @@ int main(int argc, const char* argv[])
 	std::string token = "";
 	YoutubeAPI::Youtube youtube = YoutubeAPI::Youtube(token);
 
-	YoutubeAPI::YoutubeSearch res =  youtube.search("cats", 25,"none",YoutubeAPI::ResultOrder::NONE,YoutubeAPI::ResultType::VIDEO);
+	//YoutubeAPI::YoutubeSearch res =  youtube.search("cats", 25,"none",YoutubeAPI::ResultOrder::NONE,YoutubeAPI::ResultType::VIDEO);
 	
+	YoutubeAPI::YoutubeRegionSearch res = youtube.region("fr_FR");
+
 	if (res.HaveError)
 	{
-		std::cout << res.errorMessage << std::endl;
+		std::cout << res.errors[0] << std::endl;
 	}
 	else {
-		std::cout << res.items[0].title << std::endl;
+		for (YoutubeAPI::RegionItem item : res.regions)
+		{
+			std::cout << item.name << std::endl;
+		}
 	}
 
 	return 0;
