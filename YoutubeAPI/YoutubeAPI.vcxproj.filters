@@ -27,6 +27,9 @@
     <ClInclude Include="YoutubeRegionSearch.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="YoutubeVideos.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Youtube.cpp">
@@ -42,6 +45,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="YoutubeRegionSearch.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="YoutubeVideos.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

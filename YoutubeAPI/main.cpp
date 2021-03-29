@@ -9,16 +9,18 @@ int main(int argc, const char* argv[])
 
 	//YoutubeAPI::YoutubeSearch res =  youtube.search("cats", 25,"none",YoutubeAPI::ResultOrder::NONE,YoutubeAPI::ResultType::VIDEO);
 	
-	YoutubeAPI::YoutubeRegionSearch res = youtube.region("fr_FR");
+	//YoutubeAPI::YoutubeRegionSearch res = youtube.region("fr_FR");
+
+	YoutubeAPI::YoutubeVideos res = youtube.videos("81GQNPJip2Y");
 
 	if (res.HaveError)
 	{
 		std::cout << res.errors[0] << std::endl;
 	}
 	else {
-		for (YoutubeAPI::RegionItem item : res.regions)
+		for (YoutubeAPI::VideoItem item : res.videos)
 		{
-			std::cout << item.name << std::endl;
+			std::cout << "title:"<< item.title << std::endl;
 		}
 	}
 

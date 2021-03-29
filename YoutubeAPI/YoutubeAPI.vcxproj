@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="YoutubeVideos.h" />
     <ClInclude Include="URLBuilder.h" />
     <ClInclude Include="Youtube.h" />
     <ClInclude Include="YoutubeRegionSearch.h" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Youtube.cpp" />
     <ClCompile Include="YoutubeRegionSearch.cpp" />
     <ClCompile Include="YoutubeSearch.cpp" />
+    <ClCompile Include="YoutubeVideos.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,6 +2,7 @@
 #include<iostream>
 #include "YoutubeSearch.h"
 #include "YoutubeRegionSearch.h"
+#include "YoutubeVideos.h"
 
 namespace YoutubeAPI 
 {
@@ -32,6 +33,8 @@ namespace YoutubeAPI
 
 		YoutubeRegionSearch region(std::string id);
 
+		YoutubeVideos videos(std::string id);
+
 		void  playlist_items(std::string id);
 
 		void channels();
@@ -41,8 +44,6 @@ namespace YoutubeAPI
 		void captions();
 
 		void subscriptions(std::string id);
-
-		void videos(std::string id);
 
 		void members(std::string id);
 

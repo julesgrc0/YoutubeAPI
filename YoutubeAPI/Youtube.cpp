@@ -6,6 +6,7 @@
 #include "Youtube.h"
 #include "YoutubeSearch.h"
 #include "URLBuilder.h"
+#include "YoutubeVideos.h"
 
 namespace YoutubeAPI
 {
@@ -148,6 +149,68 @@ namespace YoutubeAPI
 		}
 
 		return search;
+	}
+
+	YoutubeVideos Youtube::videos(std::string id)
+	{
+		URLBuilder url = URLBuilder(this->ApiURL + "videos");
+		url.add_param("id", id);
+		url.add_param("part", "snippet");
+		url.add_param("key", this->key);
+
+		RestClient::Response response = RestClient::get(url.get_url());
+
+		Json::Value root;
+		std::istringstream sin(response.body);
+
+		sin >> root;
+
+		YoutubeVideos result = YoutubeVideos();
+
+		if (root["error"])
+		{
+			result.errorCode = root["error"]["code"].asInt();
+			for (Json::Value item : root["error"]["errors"])
+			{
+				result.errors.push_back(item["message"].asString());
+			}
+			result.HaveError = true;
+		}
+		else {
+			result.HaveError = false;
+
+			for (Json::Value item : root["items"])
+			{
+				VideoItem video = {
+					item["id"].asString(),
+					item["etag"].asString(),
+					item["snippet"]["publishedAt"].asString(),
+					item["snippet"]["channelId"].asString(),
+					item["snippet"]["title"].asString(),
+					item["snippet"]["description"].asString(),
+					item["snippet"]["channelTitle"].asString(),
+					item["snippet"]["categoryId"].asString(),
+				};
+
+				for (Json::Value tag : item["snippet"]["tags"])
+				{
+					video.tags.push_back(tag.asString());
+				}
+
+				for (Json::Value thumbnail : item["snippet"]["thumbnails"])
+				{
+					video.Thumbnails.push_back({
+						thumbnail["url"].asString(),
+						thumbnail["width"].asInt(),
+						thumbnail["height"].asInt()
+						});
+				}
+
+				result.videos.push_back(video);
+			}
+		}
+
+		return result;
 	}
 
 	void Youtube::set_api_url(std::string url)
