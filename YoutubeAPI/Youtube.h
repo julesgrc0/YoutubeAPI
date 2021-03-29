@@ -4,6 +4,7 @@
 #include "YoutubeRegionSearch.h"
 #include "YoutubeVideos.h"
 #include "YoutubePlaylist.h"
+#include "YoutubeComments.h"
 
 namespace YoutubeAPI 
 {
@@ -38,9 +39,9 @@ namespace YoutubeAPI
 
 		YoutubePlaylist  playlist(std::string id,int max,std::string pageToken = "none");
 
-		void channels();
+		YoutubeComments comments(std::string id,int max);
 
-		void comments(std::string id);
+		void channels();
 
 		void captions();
 
@@ -49,8 +50,6 @@ namespace YoutubeAPI
 		void members(std::string id);
 
 		void languages();
-
-		void memberships_levels();
 
 		void set_api_url(std::string);
 	private:

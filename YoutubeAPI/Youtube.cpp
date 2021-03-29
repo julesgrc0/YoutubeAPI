@@ -287,6 +287,67 @@ namespace YoutubeAPI
 		return result;
 	}
 
+	YoutubeComments Youtube::comments(std::string id,int max)
+	{
+		URLBuilder url = URLBuilder(this->ApiURL + "commentThreads");
+		url.add_param("videoId", id);
+		url.add_param("maxResults", std::to_string(max));
+		url.add_param("part", "snippet");
+		url.add_param("textFormat", "plainText");
+		url.add_param("key", this->key);
+
+		RestClient::Response response = RestClient::get(url.get_url());
+
+		Json::Value root;
+		std::istringstream sin(response.body);
+
+		sin >> root;
+
+		YoutubeComments result = YoutubeComments();
+
+		if (root["error"])
+		{
+			result.errorCode = root["error"]["code"].asInt();
+			for (Json::Value item : root["error"]["errors"])
+			{
+				result.errors.push_back(item["message"].asString());
+			}
+			result.HaveError = true;
+		}
+		else
+		{
+			result.HaveError = false;
+			result.nextPageToken = root["pageInfo"]["nextPageToken"].asString();
+			result.totalsResults = root["pageInfo"]["totalResults"].asInt();
+
+			for (Json::Value item : root["items"])
+			{
+				CommentItem comment =
+				{
+					item["id"].asString(),
+					item["etag"].asString(),
+					item["snippet"]["topLevelComment"]["snippet"]["textDisplay"].asString(),
+					item["snippet"]["topLevelComment"]["snippet"]["textOriginal"].asString(),
+					item["snippet"]["topLevelComment"]["snippet"]["authorDisplayName"].asString(),
+					item["snippet"]["topLevelComment"]["snippet"]["authorProfileImageUrl"].asString(),
+					item["snippet"]["topLevelComment"]["snippet"]["authorChannelUrl"].asString(),
+					item["snippet"]["topLevelComment"]["snippet"]["authorChannelId"]["value"].asString(),
+					item["snippet"]["topLevelComment"]["snippet"]["publishedAt"].asString(),
+					item["snippet"]["topLevelComment"]["snippet"]["updatedAt"].asString(),
+
+					item["snippet"]["topLevelComment"]["snippet"]["likeCount"].asInt(),
+					item["snippet"]["totalReplyCount"].asInt(),
+					item["snippet"]["isPublic"].asBool(),
+					item["snippet"]["canReply"].asBool(),
+				};
+
+				result.comments.push_back(comment);
+			}
+		}
+
+		return result;
+	}
+
 	void Youtube::set_api_url(std::string url)
 	{
 		this->ApiURL = url;
