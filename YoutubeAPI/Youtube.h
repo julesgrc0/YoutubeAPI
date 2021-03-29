@@ -3,6 +3,7 @@
 #include "YoutubeSearch.h"
 #include "YoutubeRegionSearch.h"
 #include "YoutubeVideos.h"
+#include "YoutubePlaylist.h"
 
 namespace YoutubeAPI 
 {
@@ -35,7 +36,7 @@ namespace YoutubeAPI
 
 		YoutubeVideos videos(std::string id);
 
-		void  playlist_items(std::string id);
+		YoutubePlaylist  playlist(std::string id,int max,std::string pageToken = "none");
 
 		void channels();
 

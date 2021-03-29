@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="YoutubePlaylist.h" />
     <ClInclude Include="YoutubeVideos.h" />
     <ClInclude Include="URLBuilder.h" />
     <ClInclude Include="Youtube.h" />
@@ -149,6 +150,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="URLBuilder.cpp" />
     <ClCompile Include="Youtube.cpp" />
+    <ClCompile Include="YoutubePlaylist.cpp" />
     <ClCompile Include="YoutubeRegionSearch.cpp" />
     <ClCompile Include="YoutubeSearch.cpp" />
     <ClCompile Include="YoutubeVideos.cpp" />
