@@ -1,7 +1,7 @@
 # Youtube API
 
 A basic library for using the youtube data api.
-require to install json and restclient-cpp library. you can install them with vcpkg.
+require installing json and restclient-cpp library. you can install them with vcpkg.
 
 ## Usage
 
