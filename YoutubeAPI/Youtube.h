@@ -44,8 +44,6 @@ namespace YoutubeAPI
 
 		YoutubeChannels channels(std::string id,int max);
 
-		void languages(std::string id);
-
 		void set_api_url(std::string);
 	private:
 		std::string getOrderValue(ResultOrder);
