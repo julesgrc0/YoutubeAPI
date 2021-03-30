@@ -36,6 +36,9 @@
     <ClInclude Include="YoutubeComments.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="YoutubeChannels.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Youtube.cpp">
@@ -60,6 +63,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="YoutubeComments.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="YoutubeChannels.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

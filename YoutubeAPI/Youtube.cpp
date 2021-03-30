@@ -348,6 +348,73 @@ namespace YoutubeAPI
 		return result;
 	}
 
+	YoutubeChannels Youtube::channels(std::string id, int max)
+	{	
+		URLBuilder url = URLBuilder(this->ApiURL + "search");
+		url.add_param("channelId", id);
+		url.add_param("maxResults", std::to_string(max));
+		url.add_param("part", "snippet");
+		url.add_param("order", "date");
+		url.add_param("key", this->key);
+
+		RestClient::Response response = RestClient::get(url.get_url());
+
+		Json::Value root;
+		std::istringstream sin(response.body);
+
+		sin >> root;
+
+		YoutubeChannels result = YoutubeChannels();
+
+		if (root["error"])
+		{
+			result.errorCode = root["error"]["code"].asInt();
+			for (Json::Value item : root["error"]["errors"])
+			{
+				result.errors.push_back(item["message"].asString());
+			}
+			result.HaveError = true;
+		}
+		else
+		{
+			result.HaveError = false;
+			result.totalResults = root["pageInfo"]["totalResults"].asInt();
+			result.nextPageToken = root["nextPageToken"].asString();
+
+			for (Json::Value item : root["items"])
+			{
+				VideoItem video = {
+					item["id"]["videoId"].asString(),
+					item["etag"].asString(),
+					item["snippet"]["publishedAt"].asString(),
+					item["snippet"]["channelId"].asString(),
+					item["snippet"]["title"].asString(),
+					item["snippet"]["description"].asString(),
+					item["snippet"]["channelTitle"].asString(),
+					item["snippet"]["categoryId"].asString(),
+				};
+
+				for (Json::Value tag : item["snippet"]["tags"])
+				{
+					video.tags.push_back(tag.asString());
+				}
+
+				for (Json::Value thumbnail : item["snippet"]["thumbnails"])
+				{
+					video.Thumbnails.push_back({
+						thumbnail["url"].asString(),
+						thumbnail["width"].asInt(),
+						thumbnail["height"].asInt()
+						});
+				}
+
+				result.videos.push_back(video);
+			}
+		}
+
+		return result;
+	}
+
 	void Youtube::set_api_url(std::string url)
 	{
 		this->ApiURL = url;

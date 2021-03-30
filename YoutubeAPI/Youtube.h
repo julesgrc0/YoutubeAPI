@@ -5,6 +5,7 @@
 #include "YoutubeVideos.h"
 #include "YoutubePlaylist.h"
 #include "YoutubeComments.h"
+#include "YoutubeChannels.h"
 
 namespace YoutubeAPI 
 {
@@ -41,15 +42,9 @@ namespace YoutubeAPI
 
 		YoutubeComments comments(std::string id,int max);
 
-		void channels();
+		YoutubeChannels channels(std::string id,int max);
 
-		void captions();
-
-		void subscriptions(std::string id);
-
-		void members(std::string id);
-
-		void languages();
+		void languages(std::string id);
 
 		void set_api_url(std::string);
 	private:

@@ -15,16 +15,18 @@ int main(int argc, const char* argv[])
 
 	//YoutubeAPI::YoutubePlaylist res = youtube.playlist("", 3);
 
-	YoutubeAPI::YoutubeComments res = youtube.comments("", 25);
+	//YoutubeAPI::YoutubeComments res = youtube.comments("", 25);
+
+	YoutubeAPI::YoutubeChannels res = youtube.channels("", 25);
 
 	if (res.HaveError)
 	{
 		std::cout << res.errors[0] << std::endl;
 	}
 	else {
-		for (YoutubeAPI::CommentItem item : res.comments)
+		for (YoutubeAPI::VideoItem item : res.videos)
 		{
-			std::cout << "title:"<< item.likeCount << std::endl;
+			std::cout << "title: "<< item.title << std::endl;
 		}
 	}
 
